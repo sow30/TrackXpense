@@ -30,6 +30,8 @@ import java.util.Locale;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -169,12 +171,7 @@ public class AddExpenseActivity extends Activity implements View.OnClickListener
                 startActivity(viewExpenseIntent);
                 break;
             case R.id.buttonDelete:
-                DataBaseHelper dbHelper = new DataBaseHelper(getApplicationContext());
-                dbHelper.getWritableDatabase();
-                result = dbHelper.SaveExpenseActivity(ParseExpenseObject(), "delete");
-                dbHelper.close();
-                Intent viewExpenseIntent1 = new Intent(AddExpenseActivity.this,ViewExpenseActivity.class);
-                startActivity(viewExpenseIntent1);
+                ConfirmDeleteDialog();
                 break;
             case R.id.buttonCancel:
             default:
@@ -199,5 +196,31 @@ public class AddExpenseActivity extends Activity implements View.OnClickListener
     public void HomeButtonClickHandler(View v)
     {
         startActivity(new Intent(AddExpenseActivity.this,MainActivity.class));
+    }
+
+    public void ConfirmDeleteDialog()
+    {
+        AlertDialog.Builder dialogBuilder =  new AlertDialog.Builder(this);
+        dialogBuilder.setMessage("Confirm Delete?");
+        dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DataBaseHelper dbHelper = new DataBaseHelper(getApplicationContext());
+                dbHelper.getWritableDatabase();
+                dbHelper.SaveExpenseActivity(ParseExpenseObject(), "delete");
+                dbHelper.close();
+                Intent viewExpenseIntent1 = new Intent(AddExpenseActivity.this, ViewExpenseActivity.class);
+                startActivity(viewExpenseIntent1);
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
     }
 }

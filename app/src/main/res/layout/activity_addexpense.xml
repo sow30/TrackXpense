@@ -28,6 +28,10 @@
     android:background="@color/golden"
     android:theme="@style/AppTheme">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,14 +47,14 @@
         android:layout_height="60dip"
         android:src="@drawable/home_icon"
         android:layout_alignParentRight="true"
-        android:id="@+id/buttonHome"
-        android:onClick="HomeButtonClickHandler"/>
+        android:id="@+id/buttonHome"/>
+    </LinearLayout>
 
     <TableLayout
         android:id="@+id/mainTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonHome"
+        android:layout_below="@+id/layout1"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
         android:paddingLeft="3dip"
@@ -103,7 +107,8 @@
                 android:id="@+id/editText1"
                 android:inputType="date"
                 android:ems="10"
-                android:width="5dp">
+                android:width="5dp"
+                android:hint="mm/dd/yyyy">
             </EditText>
             <ImageButton
                 android:layout_height="50dip"

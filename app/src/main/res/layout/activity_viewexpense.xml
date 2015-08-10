@@ -26,16 +26,27 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="250dip"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:id="@+id/labelViewExpense"
         android:text="@string/label_viewexpense"
-        android:textStyle="bold"
-        android:textColorHighlight="@color/material_deep_teal_500" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
 
-
+    <ImageButton
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:src="@drawable/home_icon"
+        android:layout_gravity="right"
+        android:contentDescription="Home"
+        android:id="@+id/buttonHome"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

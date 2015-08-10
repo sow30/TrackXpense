@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class ViewIncomeActivity extends ListActivity implements View.OnClickList
     ArrayList<HashMap<String,String>> list = new ArrayList<>();
     SimpleAdapter adapter;
     Button buttonCancel;
+    public ImageButton buttonHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class ViewIncomeActivity extends ListActivity implements View.OnClickList
         buttonCancel = (Button)findViewById(R.id.buttonCancel);
         buttonCancel.setOnClickListener(this);
 
+        buttonHome = (ImageButton) findViewById(R.id.buttonHome);
+        buttonHome.setOnClickListener(this);
         getAllIncome();
 
         String[] fromColumnHashmap = new String[]{"incomeID","incomeCategory","incomeDate","incomeAmount"};
@@ -69,6 +73,9 @@ public class ViewIncomeActivity extends ListActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId())
         {
+            case R.id.buttonHome:
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                break;
             case R.id.buttonCancel:
             default: finish();
                     break;

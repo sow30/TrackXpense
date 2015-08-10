@@ -29,6 +29,10 @@
     android:id="@+id/AddCategory">
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout1">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,8 +47,14 @@
         android:layout_height="60dip"
         android:src="@drawable/home_icon"
         android:layout_alignParentRight="true"
-        android:id="@+id/buttonHome"
-        android:onClick="onClick"/>
+        android:id="@+id/buttonHome"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout2"
+        android:layout_below="@+id/layout1">
     <TableLayout
         android:id="@+id/mainTable"
         android:layout_width="wrap_content"
@@ -56,6 +66,11 @@
         android:paddingRight="3dip" >
 
         <TableRow>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/hdnCategoryID"/>
 
             <TextView
                 android:layout_width="75dip"
@@ -63,20 +78,25 @@
                 android:text="@string/label_category"
                 android:id="@+id/labelCategory" />
             <EditText
-                android:layout_width="100dip"
+                android:layout_width="150dip"
                 android:layout_height="50dip"
                 android:id="@+id/txtCategory"
                 android:inputType="text" />
         </TableRow>
     </TableLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout3"
+        android:layout_below="@+id/layout2">
     <Button
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="@string/button_save"
         android:id="@+id/buttonSave"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/mainTable"/>
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:layout_height="wrap_content"
@@ -84,7 +104,6 @@
         android:text="@string/button_cancel"
         android:id="@+id/buttonCancel"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/mainTable"
         android:layout_toRightOf="@+id/buttonSave" />
 
     <Button
@@ -92,8 +111,7 @@
         android:layout_height="wrap_content"
         android:text="@string/button_delete"
         android:id="@+id/buttonDelete"
-        android:layout_below="@id/mainTable"
         android:layout_toRightOf="@+id/buttonCancel"
         android:visibility="gone"/>
-
+    </LinearLayout>
 </RelativeLayout>

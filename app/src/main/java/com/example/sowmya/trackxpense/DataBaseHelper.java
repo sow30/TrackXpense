@@ -224,6 +224,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return expenseList1;
         }
     }
+
     ArrayList<CategoryTypeModel> categoryList = new ArrayList<CategoryTypeModel>();
     /*Get All Category types*/
     public ArrayList<CategoryTypeModel> getAllCategories(){
@@ -248,18 +249,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return categoryList;
 
     }
-
     /*Add New Category type*/
-    public void AddCategoryType(String categoryType){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_CATEGORYTYPE, categoryType);
-
+    public long SaveCategoryType(CategoryTypeModel categoryType,String mode){
         SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.insert(TABLE_CATEGORYTYPE, null, contentValues);
-        db.close();
-    }
+        long result = 0;
+        try
+        {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COLUMN_CATEGORYTYPE,categoryType.getCategoryTypeValue());
+            if(categoryType.getCategoryTypeID()>0)
+            {
+                if(mode.toLowerCase().equals("delete"))
+                    //db.delete(TABLE_CATEGORYTYPE,COLUMN_CATEGORYTYPEID+" = ?",new String[]{String.valueOf(categoryType.getCategoryTypeID())});
+                    result = db.delete(TABLE_CATEGORYTYPE,COLUMN_CATEGORYTYPEID+" = " + categoryType.getCategoryTypeID(),null);
+                else
+                    result = db.update(TABLE_CATEGORYTYPE,contentValues,COLUMN_CATEGORYTYPEID + " = " + categoryType.getCategoryTypeID(),null);
+            }
+            else
+                result = db.insert(TABLE_CATEGORYTYPE, null, contentValues);
+        }
+        catch (Exception ex)
+        {
+            String message = ex.getMessage();
+        }
+        finally {
+            db.close();
+            return result;
+        }
 
-    private ArrayList<ExpenseActivity> expenseList = new ArrayList<ExpenseActivity>();
+    }
 
     /*Get the category value by category id*/
     public String getCategorybyID(int CategoryID)
@@ -276,23 +294,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    /*Delete category type*/
-    public int ModifyCategory(String modifyType,int categoryID,String categoryValue) {
-    SQLiteDatabase db = this.getWritableDatabase();
-
-        switch (modifyType)
-        {
-            case "Delete":
-                db.delete(TABLE_CATEGORYTYPE,COLUMN_CATEGORYTYPEID+" = ?",new String[]{String.valueOf(categoryID)});
-                db.close();
-                break;
-            default:break;
-
-        }
-        return 1;
-    }
-
-
+    private ArrayList<ExpenseActivity> expenseList = new ArrayList<ExpenseActivity>();
     /*Get all the expense values from the Database */
     public ArrayList<ExpenseActivity> getAllExpenses(){
         expenseList.clear();

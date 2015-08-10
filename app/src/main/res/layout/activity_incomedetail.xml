@@ -37,19 +37,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/IncomeCategoryColumn"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:background="#FFFFFF"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/IncomeAmountColumn"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:background="#FFFFFF"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/IncomeDateColumn"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/IncomeCategoryColumn"/>
+        android:layout_below="@+id/IncomeCategoryColumn"
+        android:background="#FFFFFF"/>
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

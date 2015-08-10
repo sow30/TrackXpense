@@ -59,11 +59,11 @@ public class CategoryDetailActivity extends Activity implements View.OnClickList
         switch (v.getId())
         {
             case R.id.buttonSave:
-                db.ModifyCategory("Edit", Integer.parseInt(categoryID.getText().toString()), categoryValue.getText().toString());
+                //db.ModifyCategory("Edit", Integer.parseInt(categoryID.getText().toString()), categoryValue.getText().toString());
                 db.close();
                 break;
             case R.id.buttonDelete:
-                db.ModifyCategory("Delete", Integer.parseInt(categoryID.getText().toString()), categoryValue.getText().toString());
+                //db.ModifyCategory("Delete", Integer.parseInt(categoryID.getText().toString()), categoryValue.getText().toString());
                 db.close();
                 break;
 

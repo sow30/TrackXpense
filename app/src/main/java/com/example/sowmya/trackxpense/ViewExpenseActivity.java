@@ -62,7 +62,7 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
     Button buttonCancel ;
     Spinner reportInterval;
     String selectedInterval;
-    ImageButton previousButton,nextButton,editButton;
+    ImageButton previousButton,nextButton,editButton,homeButton;
     Calendar modifiedDate;
     DateFormat monthlyFormat = new SimpleDateFormat("MMMM");
     DateFormat yearlyFormat = new SimpleDateFormat("yyyy");
@@ -120,6 +120,9 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
                 getNext();
                 break;
 
+            case R.id.buttonHome:
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                break;
             case R.id.buttonCancel:
             default:
                 finish();
@@ -274,9 +277,11 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
         previousButton = (ImageButton) findViewById(R.id.buttonPrevious);
         nextButton = (ImageButton) findViewById(R.id.buttonNext);
         editButton = (ImageButton)findViewById(R.id.EditColumn);
+        homeButton = (ImageButton)findViewById(R.id.buttonHome);
 
         previousButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
+        homeButton.setOnClickListener(this);
 
     }
 
@@ -291,7 +296,7 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
         objEditIntent.putExtra("_category", (((TextView)currentLayout.getChildAt(1)).getText().toString()));
         objEditIntent.putExtra("_amount", (((TextView)currentLayout.getChildAt(2)).getText().toString()));
         objEditIntent.putExtra("_date", (((TextView)currentLayout.getChildAt(3)).getText().toString()));
-        objEditIntent.putExtra("_description", (((TextView)currentLayout.getChildAt(5)).getText().toString()));
+        objEditIntent.putExtra("_description", (((TextView) currentLayout.getChildAt(5)).getText().toString()));
         startActivity(objEditIntent);
 
     }
@@ -379,6 +384,8 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
         //DataBaseHelper db1 = new DataBaseHelper(getApplicationContext());
         //db1.getExpenseByInterval("monthly", monthInt<10 ? "0"+Integer.toString(monthInt) :Integer.toString(monthInt) );
         //db1.close();
-        getAllExpenses(i,v);
+        getAllExpenses(i, v);
     }
+
+
 }

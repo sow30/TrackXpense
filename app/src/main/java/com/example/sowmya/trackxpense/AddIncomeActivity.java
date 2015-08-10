@@ -24,7 +24,9 @@
 package com.example.sowmya.trackxpense;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -53,7 +55,7 @@ public class AddIncomeActivity extends Activity implements View.OnClickListener,
     private TextView labelAddIncome;
     private EditText incomeDate,incomeAmount,incomeDescription;
     Button buttonSave,buttonCancel,buttonDelete;
-    ImageButton buttonCalendarImage;
+    public ImageButton buttonCalendarImage,buttonHome;
     private Spinner incomeCategory;
     private List<String> list = new ArrayList<>();
     DateFormat simpleDateFormat;
@@ -74,14 +76,6 @@ public class AddIncomeActivity extends Activity implements View.OnClickListener,
         if(editFlag)
         {//populate view with saved values fetched from database
             populateIncomeByIncomeID();
-            //hdnIncomeID = Integer.parseInt(getIntent().getStringExtra("incomeID"));
-            //labelAddIncome.setText("EDIT INCOME DETAILS");
-            //incomeAmount.setText(getIntent().getStringExtra("incomeAmount"));
-            //incomeCategory.setSelection(list.indexOf(getIntent().getStringExtra("incomeCategory")));
-            //incomeDate.setText(getIntent().getStringExtra("incomeDate"));
-            //incomeDescription.setText(getIntent().getStringExtra("IncomeDescription"));
-
-            //buttonDelete.setVisibility(View.VISIBLE);
         }
 
     }
@@ -98,6 +92,7 @@ public class AddIncomeActivity extends Activity implements View.OnClickListener,
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonCancel = (Button) findViewById(R.id.buttonCancel);
         buttonDelete = (Button) findViewById(R.id.buttonDelete);
+        buttonHome = (ImageButton) findViewById(R.id.buttonHome);
 
         //Set button click handler
 
@@ -105,6 +100,7 @@ public class AddIncomeActivity extends Activity implements View.OnClickListener,
         buttonSave.setOnClickListener(this);
         buttonCancel.setOnClickListener(this);
         buttonDelete.setOnClickListener(this);
+        buttonHome.setOnClickListener(this);
 
     }
 
@@ -148,15 +144,20 @@ public class AddIncomeActivity extends Activity implements View.OnClickListener,
                 break;
 
             case R.id.buttonSave:
+                if(!ValidateInput())
+                    DisplayAlertDialog("validate");
 
-                result =  db.SaveIncome(parseIncomeModel(),"save");
-                startActivity(viewIncomeIntent);
+                else {
+                    result = db.SaveIncome(parseIncomeModel(), "save");
+                    startActivity(viewIncomeIntent);
+                }
                 break;
 
             case R.id.buttonDelete:
-                result = db.SaveIncome(parseIncomeModel(),"delete");
-                startActivity(viewIncomeIntent);
-
+                DisplayAlertDialog("delete");
+                break;
+            case R.id.buttonHome:
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
             case R.id.buttonCancel:
             default:
@@ -210,4 +211,60 @@ public class AddIncomeActivity extends Activity implements View.OnClickListener,
 
     }
 
+
+    public void DisplayAlertDialog(String mode)
+    {
+        AlertDialog.Builder dialogBuilder =  new AlertDialog.Builder(this);
+        if(mode=="delete") {
+            dialogBuilder.setMessage("Confirm Delete?");
+            dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    DataBaseHelper dbHelper = new DataBaseHelper(getApplicationContext());
+                    dbHelper.getWritableDatabase();
+                    dbHelper.SaveIncome(parseIncomeModel(), "delete");
+                    dbHelper.close();
+                    Intent viewIncomeIntent1 = new Intent(AddIncomeActivity.this, ViewIncomeActivity.class);
+                    startActivity(viewIncomeIntent1);
+                }
+            });
+            dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+
+        }
+        else if(mode == "validate")
+        {
+            dialogBuilder.setMessage("Please enter all fields");
+            dialogBuilder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+        }
+        final AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                }
+        );
+    }
+
+    private boolean ValidateInput()
+    {
+        if(incomeAmount.getText().toString().equals("") ||
+                incomeDate.getText().toString().equals("") || incomeDescription.getText().toString().equals(""))
+        return false;
+        if(incomeCategory.getSelectedItem().equals(""))
+            return false;
+        return true;
+    }
 }

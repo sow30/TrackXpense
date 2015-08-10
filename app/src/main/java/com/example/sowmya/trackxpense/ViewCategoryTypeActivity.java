@@ -27,12 +27,15 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -49,7 +52,8 @@ public class ViewCategoryTypeActivity extends ListActivity implements View.OnCli
     private ArrayList<HashMap<String,String>> list;
     ArrayList<CategoryTypeModel> categoryList;
 
-    Button buttonAddCategory,buttonCancel,buttonEdit;
+    Button buttonAddCategory;
+    public ImageButton buttonHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +63,10 @@ public class ViewCategoryTypeActivity extends ListActivity implements View.OnCli
         setContentView(R.layout.activity_viewcategorytype);
 
         buttonAddCategory = (Button) findViewById(R.id.buttonAddCategory);
-        buttonCancel = (Button)findViewById(R.id.buttonCancel);
+        buttonHome = (ImageButton) findViewById(R.id.buttonHome);
 
         buttonAddCategory.setOnClickListener(this);
-        buttonCancel.setOnClickListener(this);
+        buttonHome.setOnClickListener(this);
         getAllCategories();
 
 
@@ -89,8 +93,9 @@ public class ViewCategoryTypeActivity extends ListActivity implements View.OnCli
                 startActivity(addCategoryIntent);
                 break;
 
-
-
+            case R.id.buttonHome:
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                break;
             case R.id.buttonCancel:
             default:
                 finish();
@@ -123,6 +128,16 @@ public class ViewCategoryTypeActivity extends ListActivity implements View.OnCli
         }
     }
 
+    public void EditButtonClickHandler(View v)
+    {
+        RelativeLayout currentLayout = (RelativeLayout)v.getParent();
+        Intent objEditIntent = new Intent(getApplicationContext(),AddCategoryTypeActivity.class);
+        objEditIntent.putExtra("editFlag", true);
+        objEditIntent.putExtra("categoryTypeID",((TextView)currentLayout.getChildAt(0)).getText().toString());
+        objEditIntent.putExtra("categoryTypeValue", (((TextView)currentLayout.getChildAt(1)).getText().toString()));
+        startActivity(objEditIntent);
+
+    }
     protected void onListItemClick(ListView listview, View view, int position, long id) {
         super.onListItemClick(listview, view, position, id);
         Intent intentViewCategory = new Intent(ViewCategoryTypeActivity.this,ViewCategoryTypeActivity.class );

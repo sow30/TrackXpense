@@ -35,6 +35,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -57,7 +59,7 @@ public class AddExpenseActivity extends Activity implements View.OnClickListener
     private EditText dateValue,amountValue,description;
     private Button buttonSave,buttonCancel,buttonDelete;
     private Spinner categorySpinner;
-    private ImageButton buttonImage;
+    public ImageButton buttonImage,homeButton;
     private DatePickerDialog datePickerDialog;
     private SimpleDateFormat dateFormatter;
     public static Boolean editFlag = false;
@@ -116,11 +118,13 @@ public class AddExpenseActivity extends Activity implements View.OnClickListener
         buttonCancel = (Button)findViewById(R.id.buttonCancel);
         buttonImage = (ImageButton) findViewById(R.id.calendaricon);
         buttonDelete = (Button)findViewById(R.id.buttonDelete);
+        homeButton = (ImageButton)findViewById(R.id.buttonHome);
 
         buttonSave.setOnClickListener(this);
         buttonCancel.setOnClickListener(this);
         buttonImage.setOnClickListener(this);
         buttonDelete.setOnClickListener(this);
+        homeButton.setOnClickListener(this);
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getApplicationContext());
         ArrayList<CategoryTypeModel> categoryList = new ArrayList<CategoryTypeModel>();
@@ -163,15 +167,23 @@ public class AddExpenseActivity extends Activity implements View.OnClickListener
             case R.id.calendaricon:datePickerDialog.show();
                 break;
             case R.id.buttonSave:
-                DataBaseHelper db = new DataBaseHelper(getApplicationContext());
-                db.getWritableDatabase();
-                result = db.SaveExpenseActivity(ParseExpenseObject(),"save");
-                db.close();
-                Intent viewExpenseIntent = new Intent(AddExpenseActivity.this,ViewExpenseActivity.class);
-                startActivity(viewExpenseIntent);
+                if(!ValidateInput())
+                    OpenAlertDialog("validate");
+                else {
+
+                    DataBaseHelper db = new DataBaseHelper(getApplicationContext());
+                    db.getWritableDatabase();
+                    result = db.SaveExpenseActivity(ParseExpenseObject(), "save");
+                    db.close();
+                    Intent viewExpenseIntent = new Intent(AddExpenseActivity.this, ViewExpenseActivity.class);
+                    startActivity(viewExpenseIntent);
+                }
                 break;
             case R.id.buttonDelete:
-                ConfirmDeleteDialog();
+                OpenAlertDialog("delete");
+                break;
+            case R.id.buttonHome:
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 break;
             case R.id.buttonCancel:
             default:
@@ -193,34 +205,59 @@ public class AddExpenseActivity extends Activity implements View.OnClickListener
         return expense;
     }
 
-    public void HomeButtonClickHandler(View v)
-    {
-        startActivity(new Intent(AddExpenseActivity.this,MainActivity.class));
-    }
-
-    public void ConfirmDeleteDialog()
+    public void OpenAlertDialog(String mode)
     {
         AlertDialog.Builder dialogBuilder =  new AlertDialog.Builder(this);
-        dialogBuilder.setMessage("Confirm Delete?");
-        dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                DataBaseHelper dbHelper = new DataBaseHelper(getApplicationContext());
-                dbHelper.getWritableDatabase();
-                dbHelper.SaveExpenseActivity(ParseExpenseObject(), "delete");
-                dbHelper.close();
-                Intent viewExpenseIntent1 = new Intent(AddExpenseActivity.this, ViewExpenseActivity.class);
-                startActivity(viewExpenseIntent1);
-            }
-        });
-        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
+        if(mode=="delete") {
+            dialogBuilder.setMessage("Confirm Delete?");
+            dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    DataBaseHelper dbHelper = new DataBaseHelper(getApplicationContext());
+                    dbHelper.getWritableDatabase();
+                    dbHelper.SaveExpenseActivity(ParseExpenseObject(), "delete");
+                    dbHelper.close();
+                    Intent viewExpenseIntent1 = new Intent(AddExpenseActivity.this, ViewExpenseActivity.class);
+                    startActivity(viewExpenseIntent1);
+                }
+            });
+            dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+        }
+        else if(mode=="validate") {
+            dialogBuilder.setMessage("Please enter all fields");
+            dialogBuilder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.show();
+                }
+            });
+        }
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(
+                new View.OnClickListener()
+                {
+                    @Override
+                public void onClick(View v)
+                    {
+                    alertDialog.dismiss();
+                    }
+                }
+        );
+    }
+
+    private boolean ValidateInput() {
+
+        if(amountValue.getText().toString().equals("")|| dateValue.getText().toString().equals("") || description.getText().toString().equals(""))
+            return false;
+        if(categorySpinner.getSelectedItem().toString().equals("") || categorySpinner.getSelectedItem().toString().equals("Add/Edit Category"))
+            return false;
+        else
+            return true;
     }
 }

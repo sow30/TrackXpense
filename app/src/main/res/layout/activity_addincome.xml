@@ -44,7 +44,7 @@
         android:src="@drawable/home_icon"
         android:layout_alignParentRight="true"
         android:id="@+id/buttonHome"
-        android:onClick="onClick"/>
+        android:contentDescription="Home"/>
 
     <TableLayout
         android:id="@+id/mainTable"
@@ -103,7 +103,8 @@
                 android:id="@+id/date"
                 android:inputType="date"
                 android:ems="10"
-                android:width="5dp">
+                android:width="5dp"
+                android:hint="mm/dd/yyyy">
             </EditText>
             <ImageButton
                 android:layout_height="50dip"

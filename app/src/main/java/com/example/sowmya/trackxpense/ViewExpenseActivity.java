@@ -59,7 +59,6 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
 
     ArrayList<HashMap<String,String>> list =
             new ArrayList<>();
-    Button buttonCancel ;
     Spinner reportInterval;
     String selectedInterval;
     ImageButton previousButton,nextButton,editButton,homeButton;
@@ -81,7 +80,6 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
         setContentView(R.layout.activity_viewexpense);
 
         list = new ArrayList<>();
-        buttonCancel = (Button)findViewById(R.id.buttonCancel);
         reportInterval = (Spinner)findViewById(R.id.spinnerReportInterval);
         selectedIntervalTextView = (TextView)findViewById(R.id.selectedInterval);
 
@@ -104,8 +102,6 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
         //getAllExpenses(strInterval,value);
 
         setListAdapter(adapter);
-
-        buttonCancel.setOnClickListener(this);
     }
 
     @Override
@@ -123,7 +119,6 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
             case R.id.buttonHome:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
-            case R.id.buttonCancel:
             default:
                 finish();
                 break;
@@ -248,7 +243,7 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
 
     private String getWeeklyFormat(Calendar dateValue) {
 
-        String startDate,endDate,month,result;
+        String startDate,endDate,month,result,month2;
         //result should be like july 20-26 (from Monday to Sunday)
         //Code to get start of week
         Calendar cal = dateValue;
@@ -266,8 +261,9 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
             cal2.add(Calendar.DATE,1);
         }
         endDate = dateFormat.format(cal2.getTime());
-
-        result = month.substring(0,3)+" "+startDate+" - "+ endDate;
+        month2 = monthlyFormat.format(cal2.getTime());
+        result = month.equals(month2) ? (month.substring(0,3)+" "+startDate+" - "+ endDate)
+                    : (month.substring(0,3)+" "+startDate+" - "+ month2.substring(0,3) + " " + endDate);
         return result;
         //cal.getTime();        //Mon Jul 20 23:13:16 PDT 2015
 

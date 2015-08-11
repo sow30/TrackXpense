@@ -109,7 +109,7 @@ public class AddCategoryTypeActivity extends Activity implements OnClickListener
     }
     private boolean ValidateInput()
     {
-        if(categoryValue.getText().equals(""))
+        if(categoryValue.getText().toString().equals(""))
             return false;
         else
             return true;

@@ -52,7 +52,7 @@ public class ViewCategoryTypeActivity extends ListActivity implements View.OnCli
     private ArrayList<HashMap<String,String>> list;
     ArrayList<CategoryTypeModel> categoryList;
 
-    Button buttonAddCategory;
+    Button buttonAddCategory,buttonCancel;
     public ImageButton buttonHome;
 
     @Override
@@ -63,9 +63,11 @@ public class ViewCategoryTypeActivity extends ListActivity implements View.OnCli
         setContentView(R.layout.activity_viewcategorytype);
 
         buttonAddCategory = (Button) findViewById(R.id.buttonAddCategory);
+        buttonCancel = (Button) findViewById(R.id.buttonCancel);
         buttonHome = (ImageButton) findViewById(R.id.buttonHome);
 
         buttonAddCategory.setOnClickListener(this);
+        buttonCancel.setOnClickListener(this);
         buttonHome.setOnClickListener(this);
         getAllCategories();
 

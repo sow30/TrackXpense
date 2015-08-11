@@ -23,15 +23,23 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:id="@+id/AddIncomeActivity"
     android:background="@color/golden"
     android:theme="@style/AppTheme">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout1"
+        android:layout_marginBottom="75dip">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="0.95"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -39,32 +47,37 @@
         android:id="@+id/label_AddIncome" />
 
     <ImageButton
-        android:layout_width="60dip"
-        android:layout_height="60dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
         android:src="@drawable/home_icon"
         android:layout_alignParentRight="true"
         android:id="@+id/buttonHome"
-        android:contentDescription="Home"/>
+        android:contentDescription="Home"
+        android:background="@color/golden"/>
+
+    </LinearLayout>
 
     <TableLayout
         android:id="@+id/mainTable"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonHome"
-        android:layout_marginLeft="5dip"
-        android:layout_marginRight="5dip"
-        android:paddingLeft="3dip"
-        android:paddingRight="3dip" >
+        android:layout_below="@+id/layout1" >
 
         <TableRow>
             <TextView
-                android:layout_width="75dip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:layout_marginLeft="100dip"
                 android:text="@string/label_category"
                 android:id="@+id/labelCategory" />
             <Spinner
-                android:layout_width="75dip"
+                android:layout_width="250dip"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="100dip"
                 android:id="@+id/spinnerCategory"
                 android:prompt="@string/prompt_select"
                 android:spinnerMode="dropdown"
@@ -75,90 +88,129 @@
 
         <TableRow>
             <TextView
-                android:layout_width="75dip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:layout_marginLeft="100dip"
                 android:text="@string/label_amount"
                 android:id="@+id/labelAmount" />
 
             <EditText
-                android:layout_width="100dip"
-                android:layout_height="50dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="100dip"
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/amount"
-                android:layout_marginRight="5dip"
                 android:maxLength="10"/>
 
         </TableRow>
 
         <TableRow>
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="75dip"
-                android:text="@string/label_date"
-                android:id="@+id/labelDate" />
-            <EditText
-                android:layout_height="50dip"
-                android:layout_width="100dip"
-                android:id="@+id/date"
-                android:inputType="date"
-                android:ems="10"
-                android:width="5dp"
-                android:hint="mm/dd/yyyy">
-            </EditText>
-            <ImageButton
-                android:layout_height="50dip"
-                android:layout_width="50dip"
-                android:id="@+id/calendaricon"
-                android:src="@drawable/calendar_icon"
-                android:contentDescription="@string/label_description"/>
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="0.3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="100dip"
+                    android:text="@string/label_date"
+                    android:id="@+id/labelDate" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="0.7"
+                android:layout_marginLeft="10dip">
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/date"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:hint="mm/dd/yyyy">
+                </EditText>
+                <ImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginRight="10dip"
+                    android:id="@+id/calendaricon"
+                    android:src="@drawable/calendar_icon"
+                    android:contentDescription="@string/label_description"/>
+            </LinearLayout>
+
         </TableRow>
 
 
         <TableRow>
             <TextView
-                android:layout_width="75dip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:layout_marginLeft="100dip"
                 android:text="@string/label_description"
                 android:id="@+id/labelDescription"/>
 
             <EditText
-                android:layout_width="150dip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="100dip"
                 android:inputType="textMultiLine"
                 android:ems="10"
-                android:id="@+id/description"
-                android:layout_column="1" />
+                android:id="@+id/description" />
 
 
         </TableRow>
     </TableLayout>
 
-    <Button
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/button_save"
-        android:id="@+id/buttonSave"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/mainTable"/>
-
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/button_cancel"
-        android:id="@+id/buttonCancel"
-        android:layout_gravity="center_horizontal"
         android:layout_below="@+id/mainTable"
-        android:layout_toRightOf="@+id/buttonSave" />
+        android:layout_marginTop="75dip"
+        android:id="@+id/layout3">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_delete"
-        android:id="@+id/buttonDelete"
-        android:layout_below="@id/mainTable"
-        android:layout_toRightOf="@+id/buttonCancel"
-        android:visibility="gone"/>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:width="100dip"
+            android:text="@string/button_save"
+            android:id="@+id/buttonSave"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginLeft="150dip"/>
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:width="100dip"
+            android:layout_marginLeft="25dip"
+            android:gravity="center"
+            android:text="@string/button_cancel"
+            android:id="@+id/buttonCancel"
+            android:layout_gravity="center_horizontal"
+            android:layout_toRightOf="@+id/buttonSave" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="100dip"
+            android:text="@string/button_delete"
+            android:id="@+id/buttonDelete"
+            android:layout_toRightOf="@+id/buttonCancel"
+            android:visibility="gone"
+            android:layout_marginLeft="25dip"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center" />
+    </LinearLayout>
 
 
 </RelativeLayout>

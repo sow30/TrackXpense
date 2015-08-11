@@ -404,13 +404,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             {
                 if(cursor.moveToFirst())
                 {
-                    IncomeModel objIncome = new IncomeModel();
-                    objIncome.incomeID = cursor.getInt(cursor.getColumnIndex(COLUMN_INCOMEID));
-                    objIncome.incomeCategory = cursor.getString(cursor.getColumnIndex(COLUMN_INCOMECATEGORY));
-                    objIncome.incomeDate = cursor.getString(cursor.getColumnIndex(COLUMN_INCOMEDATE));
-                    objIncome.incomeAmount = cursor.getFloat(cursor.getColumnIndex(COLUMN_INCOMEAMOUNT));
-                    objIncome.incomeDescription = cursor.getString(cursor.getColumnIndex(COLUMN_INCOMEDESCRIPTION));
-                    incomeList.add(objIncome);
+                    do{
+                        IncomeModel objIncome = new IncomeModel();
+                        objIncome.incomeID = cursor.getInt(cursor.getColumnIndex(COLUMN_INCOMEID));
+                        objIncome.incomeCategory = cursor.getString(cursor.getColumnIndex(COLUMN_INCOMECATEGORY));
+                        objIncome.incomeDate = cursor.getString(cursor.getColumnIndex(COLUMN_INCOMEDATE));
+                        objIncome.incomeAmount = cursor.getFloat(cursor.getColumnIndex(COLUMN_INCOMEAMOUNT));
+                        objIncome.incomeDescription = cursor.getString(cursor.getColumnIndex(COLUMN_INCOMEDESCRIPTION));
+                        incomeList.add(objIncome);
+                    }while(cursor.moveToNext());
                 }
             }
             cursor.close();

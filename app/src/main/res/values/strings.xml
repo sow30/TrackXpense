@@ -28,7 +28,7 @@
     <string name="label_date">Date</string>
     <string name="label_description">Description</string>
     <string name="label_categorytypes">Category Types</string>
-    <string name="label_viewexpense">EXPENSE REPORT</string>
+    <string name="label_viewexpense">VIEW EXPENSE REPORT</string>
     <string name="label_viewincome">VIEW INCOME</string>
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>

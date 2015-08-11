@@ -50,9 +50,9 @@ public class TrackXpenseHelper {
     public List<String> getListInterval() {
 
         List<String> intervalList = new ArrayList<>();
-        intervalList.add("Yearly");
-        intervalList.add("Monthly");
-        intervalList.add("Weekly");
+        intervalList.add("YEARLY");
+        intervalList.add("MONTHLY");
+        intervalList.add("WEEKLY");
         return intervalList;
     }
 

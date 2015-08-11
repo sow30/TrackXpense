@@ -46,7 +46,6 @@ public class ViewIncomeActivity extends ListActivity implements View.OnClickList
 
     ArrayList<HashMap<String,String>> list = new ArrayList<>();
     SimpleAdapter adapter;
-    Button buttonCancel;
     public ImageButton buttonHome;
 
     @Override
@@ -54,8 +53,6 @@ public class ViewIncomeActivity extends ListActivity implements View.OnClickList
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewincome);
-        buttonCancel = (Button)findViewById(R.id.buttonCancel);
-        buttonCancel.setOnClickListener(this);
 
         buttonHome = (ImageButton) findViewById(R.id.buttonHome);
         buttonHome.setOnClickListener(this);
@@ -76,7 +73,6 @@ public class ViewIncomeActivity extends ListActivity implements View.OnClickList
             case R.id.buttonHome:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
-            case R.id.buttonCancel:
             default: finish();
                     break;
         }

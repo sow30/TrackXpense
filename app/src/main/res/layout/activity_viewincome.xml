@@ -27,37 +27,35 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dip">
 
         <TextView
-          android:layout_width="250dip"
-          android:layout_height="wrap_content"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+            android:layout_weight="0.95"
           android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
           android:id="@+id/labelViewIncome"
           android:text="@string/label_viewincome"
-          android:textColorHighlight="@color/material_deep_teal_500"
           android:textAppearance="?android:attr/textAppearanceLarge"
           android:layout_marginBottom="20dip" />
 
         <ImageButton
-            android:layout_width="60dip"
-            android:layout_height="60dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
             android:src="@drawable/home_icon"
             android:layout_gravity="right"
             android:id="@+id/buttonHome"
-            android:contentDescription="Home"/>
+            android:contentDescription="Home"
+            android:background="@color/golden"/>
     </LinearLayout>
   <ListView android:id="@id/android:list"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       />
-  <Button
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="20dip"
-      android:text="@string/button_cancel"
-      android:id="@+id/buttonCancel" />
+
 
 </LinearLayout>

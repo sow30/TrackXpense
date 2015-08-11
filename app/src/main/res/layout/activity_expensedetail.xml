@@ -25,7 +25,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/borders">
+    android:background="@drawable/borders"
+    android:layout_marginBottom="40dip"
+    android:layout_marginTop="40dip">
 
             <TextView
                 android:layout_height="wrap_content"
@@ -37,21 +39,27 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:background="#FFFFFF"/>
+                android:background="#FFFFFF"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
             <TextView
                 android:id="@+id/AmountColumn"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_gravity="end"
                 android:layout_alignParentRight="true"
-                android:background="#FFFFFF"/>
+                android:background="#FFFFFF"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
             <TextView
                 android:id="@+id/DateColumn"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/CategoryColumn"
-                android:background="#FFFFFF"/>
+                android:background="#FFFFFF"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

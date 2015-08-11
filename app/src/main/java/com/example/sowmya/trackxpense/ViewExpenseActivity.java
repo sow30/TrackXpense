@@ -267,7 +267,7 @@ public class ViewExpenseActivity extends ListActivity implements View.OnClickLis
         }
         endDate = dateFormat.format(cal2.getTime());
 
-        result = month+" "+startDate+" - "+"\n"+endDate;
+        result = month.substring(0,3)+" "+startDate+" - "+ endDate;
         return result;
         //cal.getTime();        //Mon Jul 20 23:13:16 PDT 2015
 
